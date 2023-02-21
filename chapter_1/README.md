@@ -45,3 +45,33 @@ C also has other escape sequences-
 | \b | backspace    |
 | \" | double quote |
 | \\ | backslash    |
+
+## Exercises
+
+### Exercise 1-1
+
+Experiment with leaving out parts of the program to see what error messages you can get.
+
+|  "error"  |   What `clang` screamed    |
+|----|--------------|
+| mispelled `main()` | undefined symbols for architecture arm64 |
+| mispelled `<stdio.h>` | `<studio.h>` not found |
+| mispelled `#include` | invalid preprocessing directive |
+| mispelled `printf()` | implict function declaration |
+| missing `}` | expected `}` to match `{` |
+| missing `;` | expected `;` after expression |
+| missing `>` | expected `>` |
+| missing `"` | missing terminating `"` |
+
+### Exercise 1-2
+
+Experiment to find out what happens when `printf`'s argument string contains `\c`, where `c` is some character not listed above.
+
+|  escape sequence  |  output   |
+|----|--------------|
+| `\q`, `\w`, `\y`, `\o`, `\p`, `\s`, `\d`, `\g`, `\h`, `\j`, `\k`, `\l`, `\z`, `\c`, `\m`, `\0`, `\~`, `\}`, `\!`, `\|`, `\>`, `\=`  | invalid escape sequence |
+| `\e`, `\a`, `\1`...`\9`  | no new line |
+| `\u`, `\x`  | hex digits |
+| `\f`, `\v`  | prints "hello, world", new line and then enough space for "hello, world" |
+| `\t` | tab stop |
+| `\b` | last character missing(backslash) |
