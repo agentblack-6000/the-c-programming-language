@@ -168,7 +168,6 @@ However, these results aren't acurate, we need to use the `float` data type to g
     upper = 300;
     step = 20;
 
-    printf("Celsius Fahrenheit\n");
     fahr = lower;
     while (fahr <= upper)
     {
@@ -186,3 +185,65 @@ Here, `5.0 / 9.0` isn't truncated to 0 because this is floating-point division. 
 `%6.1f` in `printf` specifies that a floating-point number is to be printed at least 6 characters wide, with 1 digit after the decimal point.
 
 `printf` also recognises `%o` for octals, `%x` for hexadecimal, `%c` for characters, `%s` for strings, and `%%` for the `%` itself.
+
+## Exercises
+
+### Exercise 1-3
+
+Modify the temperature conversion program to print a heading above the table.
+
+```c
+#include <stdio.h>
+
+/* print Fahrenheit-Celsius table
+ for fahr = 0, 20, ..., 300 */
+
+ int main(void)
+ {
+    float fahr, celsius;
+    int lower, upper, step;
+
+    lower = 0;
+    upper = 300;
+    step = 20;
+
+    printf("Fahrenheit Celsius\n");
+    fahr = lower;
+    while (fahr <= upper)
+    {
+        celsius = (5.0 / 9.0) * (fahr - 32.0);
+        printf("%3.0f %6.1f\n", fahr, celsius);
+        fahr += step;
+    }
+ }
+ ```
+
+### Exercise 1-4
+
+Write a prgram to print the corresponding Celsius to Fahrenheit table.
+
+```c
+#include <stdio.h>
+
+/* print Fahrenheit-Celsius table
+ for fahr = 0, 20, ..., 300 */
+
+int main(void)
+{
+    float fahr, celsius;
+    int lower, upper, step;
+
+    lower = 0;
+    upper = 300;
+    step = 20;
+
+    printf("Celsius Fahrenheit\n");
+    celsius = lower;
+    while (celsius <= upper)
+    {
+        fahr = ((9.0 / 5.0) * celsius) + 32;
+        printf("%3.0f %6.1f\n", celsius, fahr);
+        celsius += step;
+    }
+}
+```
