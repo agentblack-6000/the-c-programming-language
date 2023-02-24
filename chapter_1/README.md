@@ -271,3 +271,27 @@ int main(void)
 The `for` statement is a generalization of the `while`. The first part is the initalization, before the loop is entered. (`fahr = 0`), followed by the condition that controls the loop (`fahr <= 300`), and the increment step (`fahr += 20`), and then the condition is re-evaluated.
 
 `for` is great because it is cleaner(uses fewer variables), and more compact (keeps control statements in one place).
+
+## Exercises
+
+### Exercise 1-5
+
+Modify the temperature conversion program to print the table in reverse order, that is, from 300 degrees to 0.
+
+```c
+#include <stdio.h>
+
+/* print Fahrenheit-Celsius table
+ for fahr = 0, 20, ..., 300 */
+
+int main(void)
+{
+    int fahr;
+
+    printf("Fahrenheit Celsius\n");
+    for (fahr = 300; fahr >= 0; fahr -= 20)
+    {
+        printf("%3d %6.1f\n", fahr, (5.0 / 9.0) * (fahr - 32.0));
+    }
+}
+```
