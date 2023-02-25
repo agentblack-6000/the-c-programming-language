@@ -295,3 +295,36 @@ int main(void)
     }
 }
 ```
+
+## 1.4 Symbolic Constants
+
+It's bad practice to leave "magic" numbers-
+
+```c
+#include <stdio.h>
+
+/* print Fahrenheit-Celsius table
+ for fahr = 0, 20, ..., 300 */
+
+int main(void)
+{
+    int fahr;
+
+    printf("Fahrenheit Celsius\n");
+    for (fahr = 0; fahr <= 300; fahr += 20)
+    {
+        printf("%3d %6.1f\n", fahr, (5.0 / 9.0) * (fahr - 32.0));
+    }
+}
+```
+
+like `300` and `20`, because-
+
+1. They convey little information to someone who might have to read the program later.
+2. They're hard to change quickly
+
+To deal with them, we give them meaningful names. 
+
+`#define name replacement_text`
+
+`#define` defines a symbolic constant, such that all occurences of `name` will be replaced by `replacement_text`. `replacement_text` can be any sequence of characters, not just numbers.
