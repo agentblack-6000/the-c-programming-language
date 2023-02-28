@@ -1,5 +1,13 @@
 # The C Programming Language: Chapter 1
 
+## Contents
+
+1. [1.1 Getting Started](#11-getting-started)
+2. [1.2 Variables and Arithmetic Expressions](#12-variables-and-arithmetic-expressions)
+3. [1.3 The For Statement](#13-the-for-statement)
+4. [1.4 Symbolic Constants](#14-symbolic-constants)
+5. [1.5 Character Input and Output](#15-character-input-and-output)
+
 ## 1.1 Getting Started
 
 The first step in learning any programming language is to print the words "hello, world" to the screen.
@@ -323,7 +331,7 @@ like `300` and `20`, because-
 1. They convey little information to someone who might have to read the program later.
 2. They're hard to change quickly
 
-To deal with them, we give them meaningful names. 
+To deal with them, we give them meaningful names.
 
 `#define name replacement_text`
 
@@ -350,3 +358,74 @@ int main(void)
     }
 }
 ```
+
+## 1.5 Character Input and Output
+
+Text input or output is dealt with as streams of characters. A text stream is a sequence of characters divided into lines, consisting of zero or more characters followed by `\n`.
+
+The standard library provides several functions for reading/writing one character at a time, of which `getchar` and `putchar` are the simplest.
+
+### 1.5.1 File Copying
+
+Knowing `getchar` and `putchar`, we can write a suprising amount of useful code without knowing anything more about I/O.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int c;
+
+    c = getchar();
+    while (c != EOF)
+    {
+        putchar(c);
+        c = getchar();
+    }
+}
+```
+
+This program keeps reading a character and printing it out until the character is `EOF`(copies the input). Here, `int` instead of `char`(1 byte) as `c` must be big enough to store `EOF`, which is defined as an integer(4 bytes) in `<stdio.h>`. Since we're using the symbolic constant, nothing in the program depends on a specific numeric value.
+
+`EOF` is defined as `-1`, see code snippet if you want to check:
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    printf("%lu", sizeof(EOF));
+}
+```
+
+A more concise way of writing the copy program:
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int c;
+
+    while ((c = getchar()) != EOF)
+    {
+        putchar(c);
+    }
+}
+```
+
+This is because an assignment in C is an expression that has a value, which can appear as a larger expression. The test condition in the `while` gets a character, assigns it to `c`, and then tests if the character was `EOF`, if not executes the body of the loop otherwise exits.
+
+The `()` around the assignment are necessary because the precedence of `!=` if higher than that of `=`, i.e the statement:
+
+```c
+c = getchar() != EOF
+```
+
+would be equivalent to:
+
+```c
+c = (getchar() != EOF)
+```
+
+This would assign `c` to 1 or 0(True or False depending on the call of `getchar` encountered `EOF`).
