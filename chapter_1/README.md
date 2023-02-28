@@ -429,3 +429,32 @@ c = (getchar() != EOF)
 ```
 
 This would assign `c` to 1 or 0(True or False depending on the call of `getchar` encountered `EOF`).
+
+## Exercises
+
+### Exercise 1-6
+
+Verify the expression `getchar() != EOF` is 0 or 1.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    // Prints 1 if the character isn't EOF, otherwise 0
+    printf("%i\n", (getchar() != EOF));
+}
+```
+
+### Exercise 1-7
+
+Write a program to print the value of EOF.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    printf("%lu", sizeof(EOF));
+}
+```
