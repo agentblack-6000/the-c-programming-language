@@ -458,3 +458,47 @@ int main(void)
     printf("%lu", sizeof(EOF));
 }
 ```
+
+### 1.5.2 Character Counting
+
+This program counts characters
+
+```c
+#include <stdio.h>
+
+/* counts characters in input */
+int main(void) 
+{
+    long nc;
+
+    nc = 0;
+    while (getchar() != EOF)
+    {
+        ++nc;
+    }
+    printf("%ld\n", nc);
+}
+```
+
+The `++` operator means increment by 1, the corresponding `--` means decrement by 1. These can be prefix operators (`++nc`) or postfix operators (`nc++`).
+
+The program uses a `long` instead of an `int`, as the `int` has a maximum value of 32767, which might cause it to overflow quite quickly.
+
+Another way to write this program using a `double` and a `for` loop:
+
+```c
+#include <stdio.h>
+
+/* counts characters in input */
+int main(void) 
+{
+    double nc;
+
+    for (nc = 0; getchar() != EOF; nc++)
+        ;
+    
+    printf("%.0f\n", nc);
+}
+```
+
+The body of the loop is empty, because all the work is done in the test and increment. Since C requires the `for` statement to have a body, the isolated semicolon, called a null statement, satifies that condtion.
