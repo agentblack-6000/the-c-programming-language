@@ -526,3 +526,101 @@ int main(void)
 ```
 
 The `==` sign is C's notation for "is equal to". A character written in between `''` represents an integer value equal to the numerical value of the character in the machine's character set(`A` is a character constant, its value is 65 in the ASCII character set, so it's represented internally as `65`, similarly `\n` is `10`).
+
+## Exercises
+
+### Exercise 1-8
+
+Write a program to count blanks, tabs, and newlines.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int c, blanks, tabs, lines;
+
+    blanks = tabs = lines = 0;
+
+    while((c = getchar()) != EOF)
+    {
+        if (c == '\n')
+        {
+            ++lines;
+        }
+        else if (c == '\t')
+        {
+            ++tabs;
+        }
+        else if (c == ' ')
+        {
+            ++blanks;
+        }
+    }
+    printf("Blanks: %d\nTabs: %d\nNew Lines: %d\n", blanks, tabs, lines);
+}
+```
+
+### Exercise 1-9
+
+Write a program to copy its input to its output, replacing each string of one or more blanks by a single blank.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int c;
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c == ' ')
+        {
+            putchar(' ');
+            while((c = getchar()) == ' ');
+        }
+        putchar(c);
+    }
+}
+```
+
+### Exercise 1-10
+
+Write a program to copy its input to its output, replacing each tab by `\t`, each backspace by `\b`, and each backslash by `\\`.
+
+PS: I'm kinda pround of this answer because it works only on the knowledge based on the previous sections, unlike the ones on the web. See my StackOverflow answer [here](https://stackoverflow.com/questions/14206753/kr-1-10-the-terminal-eats-the-backspace/)!
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int c;
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c == '\t')
+        {
+            printf("\\t");
+            while ((c = getchar()) == '\t')
+                printf("\\t");
+        }
+
+        if (c == '\\')
+        {
+            printf("\\\\");
+            while ((c = getchar()) == '\\')
+                printf("\\\\");
+        }
+
+        if (c == '\b')
+        {
+            printf("\\b");
+            while ((c = getchar()) == '\b')
+                printf("\\b");
+        }
+
+        putchar(c);
+    }
+}
+```
