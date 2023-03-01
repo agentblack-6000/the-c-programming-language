@@ -502,3 +502,27 @@ int main(void)
 ```
 
 The body of the loop is empty, because all the work is done in the test and increment. Since C requires the `for` statement to have a body, the isolated semicolon, called a null statement, satifies that condtion.
+
+### 1.5.3 Line Counting
+
+```c
+#include <stdio.h>
+
+/* count lines in input */
+int main(void)
+{
+    int c, nl;
+
+    nl = 0;
+    while((c = getchar()) != EOF)
+    {
+        if (c == '\n')
+        {
+            ++nl;
+        }
+    }
+    printf("%d\n", nl);
+}
+```
+
+The `==` sign is C's notation for "is equal to". A character written in between `''` represents an integer value equal to the numerical value of the character in the machine's character set(`A` is a character constant, its value is 65 in the ASCII character set, so it's represented internally as `65`, similarly `\n` is `10`).
