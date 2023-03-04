@@ -7,6 +7,10 @@
 3. [1.3 The For Statement](#13-the-for-statement)
 4. [1.4 Symbolic Constants](#14-symbolic-constants)
 5. [1.5 Character Input and Output](#15-character-input-and-output)
+    - [1.5.1 File Copying](#151-file-copying)
+    - [1.5.2 Character Counting](#152-character-counting)
+    - [1.5.3 Line Counting](#153-line-counting)
+    - [1.5.4 Word Counting](#154-word-counting)
 
 ## 1.1 Getting Started
 
@@ -588,7 +592,7 @@ int main(void)
 
 Write a program to copy its input to its output, replacing each tab by `\t`, each backspace by `\b`, and each backslash by `\\`.
 
-PS: I'm kinda pround of this answer because it works only on the knowledge based on the previous sections, unlike the ones on the web. See my StackOverflow answer [here](https://stackoverflow.com/questions/14206753/kr-1-10-the-terminal-eats-the-backspace/)!
+PS: I'm kinda pround of this answer because it works only on the knowledge based on the previous sections, unlike the ones on the web. See my post on StackOverflow [here](https://stackoverflow.com/questions/14206753/kr-1-10-the-terminal-eats-the-backspace/)!
 
 ```c
 #include <stdio.h>
@@ -624,3 +628,69 @@ int main(void)
     }
 }
 ```
+
+### 1.5.4 Word Counting
+
+A bare-bones program of the UNIX program `wc`:
+
+```c
+#include <stdio.h>
+
+#define IN  1
+#define OUT 0
+
+/* count lines, words, and characters in input */
+int main(void)
+{
+    int c, nl, nw, nc, state;
+
+    state = OUT;
+    nl = nw = nc = 0;
+
+    while ((c = getchar()) != EOF)
+    {
+        ++nc;
+        if (c == '\n')
+        {
+            ++nl;
+        }
+        if (c == ' ' || c == '\n' || c == '\t')
+        {
+            state = OUT;
+        }
+        else if (state == OUT) 
+        {
+            state = IN;
+            ++nw;
+        }
+    }
+    printf("Lines: %d\nWords: %d\nCharacters: %d\n", nl, nw, nc);
+}
+```
+
+Every time the program encounters the first character of a word, it counts one more word. `state` records if the program is currently in a word or not.
+
+Here, symbolic constants `IN` and `OUT` are used to make the program more readable.
+
+The line-
+
+```c
+nl = nw = nc = 0;
+```
+
+sets all three variables to 0. The `||` operator means OR, and a corresponding `&&` for AND, which has a precedence just higher than the OR, evaluated left to right.
+
+The program also uses `else`, an alternative action if the condition in the `if` statement is false. The general form is
+
+```txt
+if (expression) 
+{
+    code
+}
+else
+{
+    code
+}
+```
+
+Only one of the code blocks is executed. The `else if` evaluates another condition, instead of just executing like an `else` block.
