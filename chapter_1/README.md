@@ -3,14 +3,26 @@
 ## Contents
 
 1. [1.1 Getting Started](#11-getting-started)
+    - [Exercise 1-1](#exercise-1-1)
+    - [Exercise 1-2](#exercise-1-2)
 2. [1.2 Variables and Arithmetic Expressions](#12-variables-and-arithmetic-expressions)
+    - [Exercise 1-3](#exercise-1-3)
+    - [Exercise 1-4](#exercise-1-4)
 3. [1.3 The For Statement](#13-the-for-statement)
+    - [Exercise 1-5](#exercise-1-5)
 4. [1.4 Symbolic Constants](#14-symbolic-constants)
 5. [1.5 Character Input and Output](#15-character-input-and-output)
     - [1.5.1 File Copying](#151-file-copying)
+        - [Exercise 1-6](#exercise-1-6)
+        - [Exercise 1-7](#exercise-1-7)
     - [1.5.2 Character Counting](#152-character-counting)
     - [1.5.3 Line Counting](#153-line-counting)
+        - [Exercise 1-8](#exercise-1-8)
+        - [Exercise 1-9](#exercise-1-9)
+        - [Exercise 1-10](#exercise-1-10)
     - [1.5.4 Word Counting](#154-word-counting)
+        - [Exercise 1-11](#exercise-1-11)
+        - [Exercise 1-12](#exercise-1-12)
 
 ## 1.1 Getting Started
 
@@ -592,7 +604,7 @@ int main(void)
 
 Write a program to copy its input to its output, replacing each tab by `\t`, each backspace by `\b`, and each backslash by `\\`.
 
-PS: I'm kinda pround of this answer because it works only on the knowledge based on the previous sections, unlike the ones on the web. See my post on StackOverflow [here](https://stackoverflow.com/questions/14206753/kr-1-10-the-terminal-eats-the-backspace/)!
+PS: I'm kinda pround of this answer because it works only on the knowledge based on the previous sections, unlike the ones on the web. See my answer on StackOverflow [here](https://stackoverflow.com/questions/14206753/kr-1-10-the-terminal-eats-the-backspace/)!
 
 ```c
 #include <stdio.h>
@@ -694,3 +706,50 @@ else
 ```
 
 Only one of the code blocks is executed. The `else if` evaluates another condition, instead of just executing like an `else` block.
+
+## Exercises
+
+### Exercise 1-11
+
+How would you test the word count program? What kinds of input are most likely to uncover bugs, if there are any?
+
+```txt
+The program can be tested by compiling and executing it. The program doesn't check for punctuation or words with apostrophes, etc.
+```
+
+### Exercise 1-12
+
+Write a program that prints its input one word per line.
+
+```c
+#include <stdio.h>
+
+#define IN  1
+#define OUT 0
+
+/* prints its input one word per line */
+int main(void)
+{
+    int c, state;
+
+    state = OUT;
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c == ' ' || c == '\n' || c == '\t')
+        {
+            state = OUT;
+            printf("\n");
+        }
+        else if (state == OUT)
+        {
+            state = IN;
+            putchar(c);
+        }
+        else
+        {
+            putchar(c);
+        }
+    }
+}
+```
