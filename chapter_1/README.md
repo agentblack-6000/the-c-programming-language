@@ -23,6 +23,7 @@
     - [1.5.4 Word Counting](#154-word-counting)
         - [Exercise 1-11](#exercise-1-11)
         - [Exercise 1-12](#exercise-1-12)
+6. [1.6 Arrays](#16-arrays)
 
 ## 1.1 Getting Started
 
@@ -753,3 +754,73 @@ int main(void)
     }
 }
 ```
+
+## 1.6 Arrays
+
+A program that counts the occurences of each digit, white space characters, and all other characters.
+
+```c
+#include <stdio.h>
+
+/* count digits, white space, and other characters */
+int main(void)
+{
+    int c, i, nwhite, nother;
+    int ndigit[10];
+
+    nwhite = nother = 0;
+    for (i = 0; i < 10; ++i)
+    {
+        ndigit[i] = 0;
+    }
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c >= '0' && c <= '9')
+        {
+            ++ndigit[c-'0'];
+        }
+        else if (c == ' ' || c == '\n' || c == '\t')
+        {
+            ++nwhite;
+        }
+        else
+        {
+            ++nother;
+        }
+    }
+
+    printf("digits =");
+    for (i = 0; i < 10; ++i)
+    {
+        printf(" %d", ndigit[i]);
+    }
+    printf(", white space = %d, other = %d\n", nwhite, nother);
+}
+```
+
+The line:
+
+```c
+int ndigit[10];
+```
+
+initializes an array of 10 integers. Arrary subscripts always start at `0` in C, the elements that can be accessed are `ndgit[0], ..., ndigit[9]`. The `if` statements determine if `c` is a digit(\```0``\` - \```9``\` which have increasing character values in ASCII), whitespace character, or another character.
+
+`chars` are just small integers, `char` variables and constants are identical to integers in arithmetic expressions in C.
+
+The statements:
+
+```txt
+if (condition-1)
+    statement-1
+else if (condition-2)
+    statement-2
+...
+else if (condition-n)
+    statement-n
+else
+    statement
+```
+
+refer to a multi-way decision, the conditions are evaluated in order until a condition is true, otherwise the `else` block is executed. If there is no `else`, nothing will be done.
