@@ -24,6 +24,8 @@
         - [Exercise 1-11](#exercise-1-11)
         - [Exercise 1-12](#exercise-1-12)
 6. [1.6 Arrays](#16-arrays)
+    - [Exercise 1-13](#exercise-1-13)
+    - [Exercise 1-14](#exercise-1-14)
 
 ## 1.1 Getting Started
 
@@ -472,7 +474,7 @@ Write a program to print the value of EOF.
 
 int main(void)
 {
-    printf("%lu", sizeof(EOF));
+    printf("%d\n", EOF);
 }
 ```
 
@@ -824,3 +826,116 @@ else
 ```
 
 refer to a multi-way decision, the conditions are evaluated in order until a condition is true, otherwise the `else` block is executed. If there is no `else`, nothing will be done.
+
+## Exercises
+
+### Exercise 1-13
+
+Write a program to print a histogram of the lengths of words in its input. It is easy to draw the histogram with the bars horizontal; a vertical orientation is more challenging.
+
+```c
+#include <stdio.h>
+
+#define LEN 10
+
+/* Write a program to print a histogram of the lengths of words in its input. 
+It is easy to draw the histogram with the bars horizontal; a vertical orientation is more challenging. */
+int main(void)
+{
+    int c, lw;
+    int lwords[LEN];
+
+    lw = 0;
+
+    for (int i = 0; i < LEN; ++i)
+    {
+        lwords[i] = 0;
+    }
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c == ' ' || c == '\n' || c == '\t' || c == ',')
+        {
+            if (lw < LEN)
+            {
+                lwords[lw - 1]++;
+            }
+            lw = 0;
+        }
+        else
+        {
+            lw++;
+        }
+    }
+
+    for (int i = 0; i < LEN; ++i)
+    {
+        printf("|%2d| ", i + 1);
+        for (int j = 0; j < lwords[i]; ++j)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+```
+
+### Exercise 1-14
+
+Write a program to print a histogram of the frequencies of different characters in its input.
+
+```c
+#include <stdio.h>
+
+/* Write a program to print a histogram of the frequencies of different characters in its input */
+
+int main(void)
+{
+    int c, nwhite, nother;
+    int ndigit[10];
+
+    nwhite = nother = 0;
+    for (int i = 0; i < 10; ++i)
+    {
+        ndigit[i] = 0;
+    }
+
+    while ((c = getchar()) != EOF)
+    {
+        if (c >= '0' && c <= '9')
+        {
+            ++ndigit[c-'0'];
+        }
+        else if (c == ' ' || c == '\n' || c == '\t')
+        {
+            ++nwhite;
+        }
+        else
+        {
+            ++nother;
+        }
+    }
+
+    for (int i = 0; i < 10; ++i)
+    {
+        printf("|%2d|", i);
+        for (int j = 0; j < ndigit[i]; ++j)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    
+    printf("| whitespace | ");
+    for (int i = 0; i < nwhite; ++i)
+    {
+        printf("*");
+    }
+    printf("\n| all other characters | ");
+    for (int i = 0; i < nother; ++i)
+    {
+        printf("*");
+    }
+    printf("\n");
+}
+```
