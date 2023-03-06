@@ -1001,4 +1001,22 @@ int power(int base, int n)
 
 declares the paramter types and names and the type of the result returned. Any expression can follow `return`.
 
-A function doesn't need to return a value, an empty return statement doesn't return a useful value to the caller. The caller can also ignore the value returned by a function
+A function doesn't need to return a value, an empty return statement doesn't return a useful value to the caller. The caller can also ignore the value returned by a function.
+
+`main()` is also a function like any other, and returns a value. `0` indicates normal termination while `1` indicates unusual or erroneous termination conditions.
+
+The declaration:
+
+```c
+int power(int base, int n);
+```
+
+before `main()` is called a function prototype, which has to agree with the definition and usage of power, otherwise causing an error.
+
+Parameter names are optional in the function prototype, which could have been written as:
+
+```c
+int power(int, int)
+```
+
+but parameter names, preferably the ones used in the function declaration, provide better documentation.
