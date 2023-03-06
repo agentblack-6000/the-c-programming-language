@@ -26,6 +26,8 @@
 6. [1.6 Arrays](#16-arrays)
     - [Exercise 1-13](#exercise-1-13)
     - [Exercise 1-14](#exercise-1-14)
+7. [1.7 Functions](#17-functions)
+    - [Exercise 1-15](#exercise-1-15)
 
 ## 1.1 Getting Started
 
