@@ -939,3 +939,66 @@ int main(void)
     printf("\n");
 }
 ```
+
+## 1.7 Functions
+
+A function is a good way to encapsulate some computation which can be used again and again.
+
+```c
+#include <stdio.h>
+
+/* raises a number to a power */
+
+int power(int base, int n);
+
+/* test power function */
+int main(void)
+{
+    int i;
+
+    for (i = 0; i < 10; i++)
+    {
+        printf("%d %d %d\n", i, power(2, i), power(-3, i));
+    }
+    return 0;
+}
+
+/* power: raise base to n-th power; n >= 0 */
+int power(int base, int n)
+{
+    int i, p;
+
+    p = 1;
+    for (i = 1; i <= n; ++i)
+    {
+        p = p * base;
+    }
+
+    return p;
+}
+```
+
+Function definitions can appear in any order, in one or more files, although not split between files. A function definition has this form:
+
+```txt
+return_type function_name(parameter declarations if any)
+{
+    code
+}
+```
+
+This line:
+
+```c
+printf("%d %d %d\n", i, power(2, i), power(-3, i));
+```
+
+call the `power()` function with 2 arguments, which returns an integer to be formatted and printed, while the first line of the power function:
+
+```c
+int power(int base, int n)
+```
+
+declares the paramter types and names and the type of the result returned. Any expression can follow `return`.
+
+A function doesn't need to return a value, an empty return statement doesn't return a useful value to the caller. The caller can also ignore the value returned by a function
