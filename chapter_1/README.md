@@ -28,6 +28,7 @@
     - [Exercise 1-14](#exercise-1-14)
 7. [1.7 Functions](#17-functions)
     - [Exercise 1-15](#exercise-1-15)
+8. [1.8 Arguments - Call by Value](#18-arguments---call-by-value)
 
 ## 1.1 Getting Started
 
@@ -1057,3 +1058,11 @@ float fahr_to_celsius(int fahr)
     return (5.0 / 9.0) * (fahr - 32.0);
 }
 ```
+
+## 1.8 Arguments - Call by Value
+
+In C, function arguments are passed by value as temporary variables rather than the originals, i.e the function can't modify the original variable, only its temporary copy.
+
+To enable modifying the original variables the caller must provide the address of the variable (a pointer to the variable).
+
+For arrays, the value passed to the function is the address of the start of the array, i.e the function can access and alter the elements of the array.
