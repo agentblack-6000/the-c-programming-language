@@ -1,4 +1,8 @@
 CC = clang
+CFLAGS = -c -o
 
 %.o: %.c
-	$(CC) %.c -o %.o
+	$(CC) $(CFLAGS) $@ $<
+
+clean:
+	rm *.o
