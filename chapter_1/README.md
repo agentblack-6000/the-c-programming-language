@@ -1066,3 +1066,117 @@ In C, function arguments are passed by value as temporary variables rather than 
 To enable modifying the original variables the caller must provide the address of the variable (a pointer to the variable).
 
 For arrays, the value passed to the function is the address of the start of the array, i.e the function can access and alter the elements of the array.
+
+## 1.9 Character Arrays
+
+A program that reads a set of text lines and prints the longest:
+
+The pseudocode for the program is:
+
+```txt
+while (there is another line)
+    if (line is longer than the longest line so far)
+        save the line
+        save the new longest length
+print the longest line
+```
+
+The code:
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+
+int getlinelen(char line[], int maxline);
+void copy(char to[], char from[]);
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+
+    // maximum line length
+    int max;
+
+    // current line
+    char line[MAXLINE];
+
+    // the longest line
+    char longest[MAXLINE];
+
+    // gets a line and checks if its length is greater than the maximum length so far, if so, saves it
+    max = 0;
+    while ((len = getlinelen(line, MAXLINE)) > 0)
+    {
+        if (len > max)
+        {
+            max = len;
+            copy(longest, line);
+        }
+    }
+
+    // prints the longest line
+    if (max > 0)
+    {
+        printf("%s", longest);
+    }
+
+    return 0;
+}
+
+int getlinelen(char line[], int maxline)
+{
+    int c, i;
+
+    // copies char from user into line array
+    for (i = 0; i < maxline - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+
+/* copy: copy 'from' into 'to'; assume 'to' is big enough */
+void copy(char to[], char from[])
+{
+    int i;
+
+    // copies to into from until \0 is found 
+    i = 0;
+    while ((to[i] = from[i]) != '\0')
+    {
+        ++i;
+    }
+}
+```
+
+`getline` uses `return` to send a value back to the caller, just like `power`. The `copy` function doesn't 
+return a value, hence its return type is `void`.
+
+By convention, `getline` puts the null character, `\0` at the end of the arrary it is creating, which is also used by the C language.
+
+All string constants are stored as an arrary of characters containing the characters of the string, ending with `\0`.
+
+|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+|  h  |  e  |  l  |  l  |  o  |  ,  |  w  |  o  |  r  |  l  |  d  |  \0 |
+
+The `%s` argument in `printf` incidactes a string represented in this form, and `copy` relies on the fact that its input argument is also terminated by `\0`.
+
+Since the line might be longer than the maximum length that can be stored, `getline` checks for an overflow
+(the `i < maxline - 1` in the `for`'s loop condition).
