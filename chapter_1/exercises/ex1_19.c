@@ -6,6 +6,11 @@
 int getlinelen(char line[], int maxline);
 void reverse(char string[], int length);
 
+/*
+Write a function reverse(s) that reverses the character string s. Use it to write a program that reverses
+its input a line at a time.
+*/
+
 /* print longest input line */
 int main(void)
 {

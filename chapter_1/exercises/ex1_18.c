@@ -6,6 +6,9 @@
 int getlinelen(char line[], int maxline);
 void strip(char string[], int length);
 
+/*
+Write a program to remove trailing blanks and tabs from each line of input, and to delete entirely blank lines.
+*/
 /* print longest input line */
 int main(void)
 {
