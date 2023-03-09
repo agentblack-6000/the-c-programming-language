@@ -1495,3 +1495,114 @@ void reverse(char string[], int length)
     printf("\n");
 }
 ```
+
+## 1.10 External Variables and Scope
+
+The variables in `main()` are private or local to `main()`, i.e no other function can access them. The same
+is also true for variables in `getline()` and `copy()`, they come into existence when they are called and
+disappear after the function returns a value. These variables are known as automatic variables, and will
+contain garbage if they aren't set.
+
+It is possible to define variables that are external to functions, that can be accessed by any function, and
+retain their values even after functions return values.
+
+An external variable must be defined outside the function and declared in each function that wants to access it, using the `extern` statement.
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+
+// maximum line length
+int max;
+
+// current line
+char line[MAXLINE];
+
+// the longest line
+char longest[MAXLINE];
+
+int getlinelen(void);
+void copy(void);
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+    extern int max;
+    extern char longest[];
+
+    // gets a line and checks if its length is greater than the maximum length so far, if so, saves it
+    max = 0;
+    while ((len = getlinelen()) > 0)
+    {
+        if (len > max)
+        {
+            max = len;
+            copy();
+        }
+    }
+
+    // prints the longest line
+    if (max > 0)
+    {
+        printf("%s", longest);
+    }
+
+    return 0;
+}
+
+int getlinelen(void)
+{
+    int c, i;
+    extern char line[];
+
+    // copies char from user into line array
+    for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+
+/* copy: copy 'from' into 'to'; assume 'to' is big enough */
+void copy(void)
+{
+    int i;
+    extern char line[], longest[];
+
+    // copies to into from until \0 is found 
+    i = 0;
+    while ((longest[i] = line[i]) != '\0')
+    {
+        ++i;
+    }
+}
+```
+
+The external variables are defined by the first lines of the program, and are accessed by the functions
+using `extern`.
+
+The `extern` declaration can be omitted if the variable occurs in the source file before usage, hence all
+the `extern` declarations are redundant here.
+
+If the program is in several source files, `extern` declarations are needed. By convention, all "external"
+variables are put in a header file (.h) and included at the beginning of the program using `#include`.
+
+External variables exist even when they aren't needed, and can lead to variables being changed in unexpected
+ways. Also, the generality of the functions is lost by wiring in which variables they have to use. (they
+can't be included in another file).
