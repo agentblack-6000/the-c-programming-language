@@ -34,6 +34,7 @@
     - [Exercise 1-17](#exercise-1-17)
     - [Exercise 1-18](#exercise-1-18)
     - [Exercise 1-19](#exercise-1-19)
+10. [1.10 External Variables and Scope](#110-external-variables-and-scope)
 
 ## 1.1 Getting Started
 
