@@ -1,4 +1,5 @@
 CC = clang
+CFLAGS=-Wall -o
 
-%.o: %.c
-	$(CC) %.c -o %.o
+%: %.c
+	$(CC) $(CFLAGS) %.c
