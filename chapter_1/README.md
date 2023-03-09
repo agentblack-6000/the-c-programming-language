@@ -29,6 +29,11 @@
 7. [1.7 Functions](#17-functions)
     - [Exercise 1-15](#exercise-1-15)
 8. [1.8 Arguments - Call by Value](#18-arguments---call-by-value)
+9. [1.9 Character Arrays](#19-character-arrays)
+    - [Exercise 1-16](#exercise-1-16)
+    - [Exercise 1-17](#exercise-1-17)
+    - [Exercise 1-18](#exercise-1-18)
+    - [Exercise 1-19](#exercise-1-19)
 
 ## 1.1 Getting Started
 
@@ -1180,3 +1185,306 @@ The `%s` argument in `printf` incidactes a string represented in this form, and 
 
 Since the line might be longer than the maximum length that can be stored, `getline` checks for an overflow
 (the `i < maxline - 1` in the `for`'s loop condition).
+
+## Exercises
+
+### Exercise 1-16
+
+Revise the main routine of the longest-line program so it will correctly print the length of arbitrarily
+long input lines, and as much as possible of the text
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+
+int getlinelen(char line[], int maxline);
+void copy(char to[], char from[]);
+
+
+/* 
+Revise the main routine of the longest-line program so it will correctly print the length of arbitrarily
+long input lines, and as much as possible of the text
+*/
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+
+    int c;
+
+    // maximum line length
+    int max;
+
+    // current line
+    char line[MAXLINE];
+
+    // the longest line
+    char longest[MAXLINE];
+
+    // gets a line and checks if its length is greater than the maximum length so far, if so, saves it
+    max = 0;
+    while ((len = getlinelen(line, MAXLINE)) > 0)
+    {
+        if (line[len - 1] != '\n')
+        {
+            while ((c = getchar()) != EOF && c != '\n')
+            {
+                ++len;
+            }
+        }
+        if (len > max)
+        {
+            max = len;
+            copy(longest, line);
+        }
+    }
+
+    // prints the longest line
+    if (max > 0)
+    {
+        printf("%slength: %d\n", longest, max);
+    }
+
+    return 0;
+}
+
+int getlinelen(char line[], int maxline)
+{
+    int c, i;
+
+    // copies char from user into line array
+    for (i = 0; i < maxline - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+
+/* copy: copy 'from' into 'to'; assume 'to' is big enough */
+void copy(char to[], char from[])
+{
+    int i;
+
+    // copies to into from until \0 is found 
+    i = 0;
+    while ((to[i] = from[i]) != '\0')
+    {
+        ++i;
+    }
+}
+```
+
+### Exercise 1-17
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+#define CHARLIMIT 80
+
+int getlinelen(char line[], int maxline);
+
+/* Write a program to print all the input lines that are longer than 80 characters */
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+
+    // current line
+    char line[MAXLINE];
+
+    // gets a line and prints it out if its length > CHARLIMIT
+    while ((len = getlinelen(line, MAXLINE)) > 0)
+    {
+        if (len > CHARLIMIT)
+        {
+            printf("%s", line);
+        }
+    }
+
+    return 0;
+}
+
+int getlinelen(char line[], int maxline)
+{
+    int c, i;
+
+    // copies char from user into line array
+    for (i = 0; i < maxline - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+```
+
+### Exercise 1-18
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+
+int getlinelen(char line[], int maxline);
+void strip(char string[], int length);
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+
+    // current line
+    char line[MAXLINE];
+
+    // gets a line and removes trailing blanks and tabs from each line of input
+    while ((len = getlinelen(line, MAXLINE)) > 0)
+    {
+        strip(line, len);
+    }
+
+    return 0;
+}
+
+int getlinelen(char line[], int maxline)
+{
+    int c, i;
+
+    // copies char from user into line array
+    for (i = 0; i < maxline - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+
+void strip(char string[], int length)
+{
+    // goes through the string setting each space and tab to null
+    int i = length - 2;
+    while ((string[i] == ' ' || string[i] == '\t') && i > -1)
+    {
+        string[i] = '\0';
+        --i;
+    }
+
+    // ends string with new line or if the string is blank prints nothing
+    if (string[i + 1] == '\0' && string[i] != '\0')
+    {
+        string[i + 1] = '\n';
+        string[i + 2] = '\0';
+    }
+
+    // prints out the string
+    printf("%s", string);
+}
+```
+
+### Exercise 1-19
+
+```c
+#include <stdio.h>
+
+// maximum input line size
+#define MAXLINE 1000
+
+int getlinelen(char line[], int maxline);
+void reverse(char string[], int length);
+
+/* print longest input line */
+int main(void)
+{
+    // current line length
+    int len;
+
+    // current line
+    char line[MAXLINE];
+
+    // gets a line and reverses it
+    while ((len = getlinelen(line, MAXLINE)) > 0)
+    {
+        reverse(line, len);
+    }
+
+    return 0;
+}
+
+int getlinelen(char line[], int maxline)
+{
+    int c, i;
+
+    // copies char from user into line array
+    for (i = 0; i < maxline - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        line[i] = c;
+    }
+
+    // increments c if last char is \n
+    if (c == '\n')
+    {
+        line[i] = c;
+        ++i;
+    }
+
+    // sets the last character of the array to \0
+    line[i] = '\0';
+
+    // returns the length of the array
+    return i;
+}
+
+/* reverse: reverse string */
+void reverse(char string[], int length)
+{
+    // -2 to not print \0 and \n
+    for (int i = length - 2; i > -1; --i)
+    {
+        printf("%c", string[i]);
+    }
+    printf("\n");
+}
+```
